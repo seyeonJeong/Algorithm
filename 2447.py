@@ -1,29 +1,36 @@
+# 별 찍는 재귀 함수
+def draw_star(n):
+    global Map
 
-def draw_stars(num):
-    matrix = []
-    for i in range(3*len(num)):
-        if i // len(num) == 1:
-            matrix.append(num[i%len(num)] + " "*len(num) +  n[i%len(n)] )
+    if n == 3:
+        Map[0][:3] = Map[2][:3] = [1] * 3
+        Map[1][:3] = [1, 0, 1]
+        return
+
+    a = n // 3
+    draw_star(n // 3)
+    for i in range(3):
+        for j in range(3):
+            if i == 1 and j == 1:
+                continue
+            for k in range(a):
+                Map[a * i + k][a * j:a * (j + 1)] = Map[k][:a]  # 핵심 아이디어
+
+
+N = int(input())
+
+# 메인 데이터 선언
+Map = [[0 for i in range(N)] for i in range(N)]
+
+draw_star(N)
+
+for i in Map:
+    for j in i:
+        if j:
+            print('*', end='')
         else:
-            matrix.append(n[i%len(n)] * 3)
-        return(list(matrix))
-
-
-
-
-
-star = ["***", "* *", "***"]
-n = int(input())
-count = 0
-
-while n != 3:
-    n = int(n/3)
-    count+=1  #count 1씩 증가
-
-for i in range(count):
-    star = draw_stars(star)
-for i in star:
-    print(i)
+            print(' ', end='')
+    print()
 
 
 
