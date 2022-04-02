@@ -1,36 +1,34 @@
-# 별 찍는 재귀 함수
-def draw_star(n):
-    global Map
+# 별들을 만들 함수
+def get_stars(n):
+    # 별들을 담을 리스트
+    Temp = []
+    #
+    for i in range(3 * len(n)):
+        # n(즉 len(stars))이 3으로 나누어 떨어지지 않는다면(1이 남는다면) 가운데 공백을 줌(n의 길이 만큼)
+        if i // len(n) == 1:
+            Temp.append(n[i % len(n)] + " " * len(n) + n[i % len(n)])
 
-    if n == 3:
-        Map[0][:3] = Map[2][:3] = [1] * 3
-        Map[1][:3] = [1, 0, 1]
-        return
-
-    a = n // 3
-    draw_star(n // 3)
-    for i in range(3):
-        for j in range(3):
-            if i == 1 and j == 1:
-                continue
-            for k in range(a):
-                Map[a * i + k][a * j:a * (j + 1)] = Map[k][:a]  # 핵심 아이디어
-
-
-N = int(input())
-
-# 메인 데이터 선언
-Map = [[0 for i in range(N)] for i in range(N)]
-
-draw_star(N)
-
-for i in Map:
-    for j in i:
-        if j:
-            print('*', end='')
+        # n이 3으로 나누어 떨어진다면, 공백 없이 가득 채움
         else:
-            print(' ', end='')
-    print()
+            Temp.append(n[i % len(n)] * 3)
 
+    return Temp
+
+
+stars = ["***", "* *", "***"]
+n = int(input())
+k = 0
+
+# 만약 n이 3이 될 때 까지 n은 3으로 나눠준 값을 다시 n값으로 지정하고 k 1씩 추가
+while n != 3:
+    n = int(n / 3)
+
+    # k는 함수를 몇번 실행할지 정하는 변수
+    k += 1
+
+for i in range(k):
+    stars = get_stars(stars)
+for i in stars:
+    print(i)
 
 
