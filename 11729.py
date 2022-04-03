@@ -1,3 +1,7 @@
+
+
+
+
 def hanoi_tower(n, start, end): # n = 원판 개수, start = 시작지점, end = 목표지점
     if n == 1: # 원판 개수가 1이면 시작지점과 목표지점을 print하고 함수를 나감
         print(start, end)
